@@ -2,6 +2,7 @@
 """ Console Module """
 import cmd
 import sys
+import shlex
 from models.base_model import BaseModel
 from models.__init__ import storage
 from models.user import User
@@ -118,14 +119,29 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
             return
-        elif args not in HBNBCommand.classes:
+	params = shlex.split(args)
+        class_name = params[0]
+
+        if class_name not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        new_instance = HBNBCommand.classes[args]()
-        storage.save()
-        print(new_instance.id)
-        storage.save()
+        new_instance = HBNBCommand.classes[class_name]()
+        obj_params={}
+        if len(params) >1:
+            for par in params:
+                if '=' in par:
+                    key, value = par.split("=")
+                else:
+                    continue
+                if value[0] == '"' and value[-1] == '"':
+                    value = value.strip('"')
+                    value = value.replace("_", " ")
+                    setattr(new_instance, key, value)
+                else:
+                    setattr(new_instance, key, value)
 
+        new_instance.save()
+        print(new_instance.id)
     def help_create(self):
         """ Help information for the create method """
         print("Creates a class of any type")
