@@ -74,7 +74,7 @@ class HBNBCommand(cmd.Cmd):
                 pline = pline[2].strip()  # pline is now str
                 if pline:
                     # check for *args or **kwargs
-                    if pline[0] is '{' and pline[-1] is'}'\
+                    if pline[0] is '{' and pline[-1] is '}'\
                             and type(eval(pline)) is dict:
                         _args = pline
                     else:
@@ -119,15 +119,15 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
             return
-	params = shlex.split(args)
+        params = shlex.split(args)
         class_name = params[0]
 
         if class_name not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
         new_instance = HBNBCommand.classes[class_name]()
-        obj_params={}
-        if len(params) >1:
+        obj_params = {}
+        if len(params) > 1:
             for par in params:
                 if '=' in par:
                     key, value = par.split("=")
@@ -142,6 +142,7 @@ class HBNBCommand(cmd.Cmd):
 
         new_instance.save()
         print(new_instance.id)
+
     def help_create(self):
         """ Help information for the create method """
         print("Creates a class of any type")
@@ -335,6 +336,7 @@ class HBNBCommand(cmd.Cmd):
         """ Help information for the update class """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
