@@ -12,6 +12,7 @@ def hello_world():
     '''a function to display text'''
     return "Hello HBNB!"
 
+
 @app.route("/hbnb", strict_slashes=False)
 def hbnb():
     '''a function to display text'''
