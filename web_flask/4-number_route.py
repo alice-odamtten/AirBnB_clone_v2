@@ -37,7 +37,7 @@ def hellopython(text):
 @app.route("/number/<int:n>", strict_slashes=False)
 def numbern(n):
     '''set int variable'''
-    return "n is a number"
+    return "{:d} is a number".format(n)
 
 
 if __name__ == '__main__':
