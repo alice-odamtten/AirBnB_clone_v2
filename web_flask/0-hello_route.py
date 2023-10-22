@@ -7,6 +7,7 @@ app = Flask(__name__)
 
 @app.route("/", strict_slashes=False)
 def hello_world():
+    '''a function to display text'''
     return "<p>Hello HBNB!</p>"
 
 
